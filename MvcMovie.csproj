@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MvcBook\Migrations\" />
+  </ItemGroup>
+
 </Project>

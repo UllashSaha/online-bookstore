@@ -1,59 +1,63 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MvcMovie.Data;
+using MvcBook.Data;
 using System;
 using System.Linq;
 
-namespace MvcMovie.Models
+namespace MvcBook.Models
 {
     public static class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new MvcMovieContext(
+            using (var context = new MvcBookContext(
                 serviceProvider.GetRequiredService<
-                    DbContextOptions<MvcMovieContext>>()))
+                    DbContextOptions<MvcBookContext>>()))
             {
-                // Look for any movies.
-                if (context.Movie.Any())
+                // Look for any books.
+                if (context.Book.Any())
                 {
                     return;   // DB has been seeded
                 }
 
-                context.Movie.AddRange(
-                    new Movie
+                context.Book.AddRange(
+                    new Book
                     {
-                        Title = "When Harry Met Sally",
-                        ReleaseDate = DateTime.Parse("1989-2-12"),
-                        Genre = "Romantic Comedy",
-                        Rating= "R",
+                        Title = "Harry Potter and the Chamber of Secrets",
+                        Author= "J.K. Rowling",
+                        PublishDate = DateTime.Parse("1998-2-07"),
+                        Genre = "Fantasy literature",
+                        Rating= "4.3",
                         Price = 7.99M
                     },
 
-                    new Movie
+                    new Book
                     {
-                        Title = "Ghostbusters ",
-                        ReleaseDate = DateTime.Parse("1984-3-13"),
-                        Genre = "Comedy",
-                        Rating = "R",
+                        Title = "The Lost Symbol",
+                        Author = "Dan Brown",
+                        PublishDate = DateTime.Parse("1984-3-13"),
+                        Genre = "Thriller",
+                        Rating = "3.7",
                         Price = 8.99M
                     },
 
-                    new Movie
+                    new Book
                     {
-                        Title = "Ghostbusters 2",
-                        ReleaseDate = DateTime.Parse("1986-2-23"),
-                        Genre = "Comedy",
-                        Rating = "R",
+                        Title = "The Lord of the Rings",
+                        Author = "J. R. R. Tolkien",
+                        PublishDate = DateTime.Parse("2009-9-15"),
+                        Genre = "Adventure fiction",
+                        Rating = "4.4",
                         Price = 9.99M
                     },
 
-                    new Movie
+                    new Book
                     {
-                        Title = "Rio Bravo",
-                        ReleaseDate = DateTime.Parse("1959-4-15"),
-                        Genre = "Western",
-                        Rating = "R",
+                        Title = "Romeo and Juliet",
+                        Author = "William Shakespeare",
+                        PublishDate = DateTime.Parse("1597-01-01"),
+                        Genre = "Play",
+                        Rating = "4.5",
                         Price = 3.99M
                     }
                 );

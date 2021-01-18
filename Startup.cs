@@ -1,4 +1,4 @@
-using MvcMovie.Data;
+using MvcBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace MvcMovie
+namespace MvcBook
 {
     public class Startup
     {
@@ -27,8 +27,8 @@ namespace MvcMovie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MvcMovieContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
+            services.AddDbContext<MvcBookContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("MvcBookContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
