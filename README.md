@@ -7,6 +7,7 @@ Project is created with:
 * Visual Studio 2019
 * C#
 * SQL Server
+* HTML
 
 ## Running the application locally
 * Open solution in Visual Studio 2019
