@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MvcBook.Data;
+using MvcMovie.Data;
 using System;
 using System.Linq;
 

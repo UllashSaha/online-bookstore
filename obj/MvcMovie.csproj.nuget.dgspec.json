@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\.net Projects\\MvcMovie\\MvcMovie.csproj": {}
+    "D:\\.net Projects\\online-bookstore\\MvcMovie.csproj": {}
   },
   "projects": {
-    "D:\\.net Projects\\MvcMovie\\MvcMovie.csproj": {
+    "D:\\.net Projects\\online-bookstore\\MvcMovie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\.net Projects\\MvcMovie\\MvcMovie.csproj",
+        "projectUniqueName": "D:\\.net Projects\\online-bookstore\\MvcMovie.csproj",
         "projectName": "MvcMovie",
-        "projectPath": "D:\\.net Projects\\MvcMovie\\MvcMovie.csproj",
+        "projectPath": "D:\\.net Projects\\online-bookstore\\MvcMovie.csproj",
         "packagesPath": "C:\\Users\\student\\.nuget\\packages\\",
-        "outputPath": "D:\\.net Projects\\MvcMovie\\obj\\",
+        "outputPath": "D:\\.net Projects\\online-bookstore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -43,6 +43,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.2, )"
