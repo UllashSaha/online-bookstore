@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MvcMovie.Data;
+using MvcBook.Data;
+using Microsoft.AspNetCore.Identity;
+using MvcBook.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvcBook
 {
@@ -21,9 +24,16 @@ namespace MvcBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
             services.AddRazorPages();
+           
             services.AddDbContext<MvcBookContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcBookContext")));
+
+
+
+          
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +51,7 @@ namespace MvcBook
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+          
             app.UseRouting();
 
             app.UseAuthentication();

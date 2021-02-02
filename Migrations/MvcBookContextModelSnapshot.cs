@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MvcMovie.Data;
+using MvcBook.Data;
 
-namespace MvcMovie.Migrations
+namespace MvcBook.Migrations
 {
     [DbContext(typeof(MvcBookContext))]
     partial class MvcBookContextModelSnapshot : ModelSnapshot
@@ -28,6 +28,10 @@ namespace MvcMovie.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -44,6 +48,8 @@ namespace MvcMovie.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -154,42 +160,7 @@ namespace MvcMovie.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MvcBook.Models.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Author")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Rating")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Book");
-                });
-
-            modelBuilder.Entity("MvcMovie.Areas.Identity.Data.MvcBookUser", b =>
+            modelBuilder.Entity("MvcBook.Areas.Identity.Data.MvcBookUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -260,6 +231,63 @@ namespace MvcMovie.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("MvcBook.Models.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Author")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PublishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Rating")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Book");
+                });
+
+            modelBuilder.Entity("MvcBook.Models.BookMvcBookUser", b =>
+                {
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MvcBookUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BookId", "MvcBookUserId");
+
+                    b.HasIndex("MvcBookUserId");
+
+                    b.ToTable("BookMvcBookUser");
+                });
+
+            modelBuilder.Entity("MvcBook.Models.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.HasDiscriminator().HasValue("Role");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -271,7 +299,7 @@ namespace MvcMovie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("MvcMovie.Areas.Identity.Data.MvcBookUser", null)
+                    b.HasOne("MvcBook.Areas.Identity.Data.MvcBookUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,7 +308,7 @@ namespace MvcMovie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("MvcMovie.Areas.Identity.Data.MvcBookUser", null)
+                    b.HasOne("MvcBook.Areas.Identity.Data.MvcBookUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,7 +323,7 @@ namespace MvcMovie.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MvcMovie.Areas.Identity.Data.MvcBookUser", null)
+                    b.HasOne("MvcBook.Areas.Identity.Data.MvcBookUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -304,11 +332,40 @@ namespace MvcMovie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("MvcMovie.Areas.Identity.Data.MvcBookUser", null)
+                    b.HasOne("MvcBook.Areas.Identity.Data.MvcBookUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MvcBook.Models.BookMvcBookUser", b =>
+                {
+                    b.HasOne("MvcBook.Models.Book", "Book")
+                        .WithMany("BookMvcBookUser")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvcBook.Areas.Identity.Data.MvcBookUser", "MvcBookUser")
+                        .WithMany("BookMvcBookUser")
+                        .HasForeignKey("MvcBookUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("MvcBookUser");
+                });
+
+            modelBuilder.Entity("MvcBook.Areas.Identity.Data.MvcBookUser", b =>
+                {
+                    b.Navigation("BookMvcBookUser");
+                });
+
+            modelBuilder.Entity("MvcBook.Models.Book", b =>
+                {
+                    b.Navigation("BookMvcBookUser");
                 });
 #pragma warning restore 612, 618
         }

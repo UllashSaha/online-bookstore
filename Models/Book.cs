@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MvcBook.Models;
+using Microsoft.AspNetCore.Identity;
+
 namespace MvcBook.Models
 {
     public class Book
@@ -29,5 +32,7 @@ namespace MvcBook.Models
 
         [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$"), StringLength(5)]
         public string Rating { get; set; }
+
+        public List<BookMvcBookUser> BookMvcBookUser { get; set; }
     }
 }

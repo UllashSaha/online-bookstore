@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using MvcMovie.Areas.Identity.Data;
+using MvcBook.Areas.Identity.Data;
 
-namespace MvcMovie.Areas.Identity.Pages.Account
+namespace MvcBook.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel

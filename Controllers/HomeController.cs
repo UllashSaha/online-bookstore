@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MvcBook.Controllers
 {
-    [Authorize]
+   [Authorize]
     public class HomeController : Controller
     {
         
