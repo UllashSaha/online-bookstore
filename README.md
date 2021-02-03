@@ -1,5 +1,5 @@
 # Online Bookstore Application 
- A web-based bookstore application that that facilitates role-based authentication, dynamic book search options, and add-to-cart features. 
+ A web-based bookstore application that facilitates role-based authentication, dynamic book search options, and add-to-cart features. 
  
 ## Features
 * Book CRUD operations for Admins
