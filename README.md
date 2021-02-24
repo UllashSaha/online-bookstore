@@ -1,9 +1,10 @@
 # Online Bookstore Application 
- A web-based bookstore application that allows dynamic book search options for the users
+ A web-based application that manages online bookstore facilitating with role-based authorization (e.g., admin and general user), dynamic book search options, and add-to-cart feature. 
  
 ## Features
-* Book CRUD operations
+* Book CRUD operations for Admins
 * Dynamic Search options  
+* Add-To-Cart feature
 
 ## Technologies & Libraries 
 Project is created with:
