@@ -1,15 +1,15 @@
 ﻿@model MvcBook.Models.BookGenreViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Cart";
 }
 
-<h1>Admin</h1>
+<h3>My Cart</h3>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
-<form asp-controller="Books" asp-action="Index" method="get">
+</p>*@
+<form asp-controller="MyCart" asp-action="Index" method="get">
     <p>
 
         <select asp-for="BookGenre" asp-items="Model.Genres">
@@ -63,7 +63,7 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

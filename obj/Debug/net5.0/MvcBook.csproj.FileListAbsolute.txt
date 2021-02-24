@@ -198,3 +198,8 @@ D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\UserBooks\Edit.cs
 D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\UserBooks\Index.cshtml.g.cs
 D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\UserBooks\AddToCart.cshtml.g.cs
 D:\.net Projects\online-bookstore\bin\Debug\net5.0\Microsoft.AspNet.Identity.Core.dll
+D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\MyCart\Create.cshtml.g.cs
+D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\MyCart\Delete.cshtml.g.cs
+D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\MyCart\Details.cshtml.g.cs
+D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\MyCart\Edit.cshtml.g.cs
+D:\.net Projects\online-bookstore\obj\Debug\net5.0\Razor\Views\MyCart\Index.cshtml.g.cs

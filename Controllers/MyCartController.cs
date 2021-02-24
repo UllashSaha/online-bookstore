@@ -8,19 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using MvcBook.Models;
 using MvcBook.Data;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using MvcBook.Areas.Identity.Data;
-using Microsoft.Data.SqlClient;
+using System.Security.Claims;
 
 namespace MvcBook.Controllers
 {
     [Authorize]
-    public class UserBooksController : Controller
+    public class MyCartController : Controller
     {
+        
+
         private readonly UserManager<MvcBookUser> _userManager;
         private readonly MvcBookContext _context;
 
-        public UserBooksController(MvcBookContext context, UserManager<MvcBookUser> userManager)
+        public MyCartController(MvcBookContext context, UserManager<MvcBookUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -34,8 +35,32 @@ namespace MvcBook.Controllers
                                             orderby m.Genre
                                             select m.Genre;
 
-            var books = from m in _context.Book
-                         select m;
+
+           /* MvcBookUser user = await _userManager.GetUserAsync(HttpContext.User);*/
+
+
+
+
+            var books = from book in _context.Book
+                        join bookMvcBookuser in _context.BookMvcBookUser
+                        on book.Id equals bookMvcBookuser.BookId 
+
+                        where bookMvcBookuser.MvcBookUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
+                        select book;
+              
+
+          /*  from person in _dbContext.Person
+            join detail in _dbContext.PersonDetails on person.Id equals detail.PersonId into Details
+            from m in Details.DefaultIfEmpty()
+            select new
+            {
+                id = person.Id,
+                firstname = person.Firstname,
+                lastname = person.Lastname,
+                detailText = m.DetailText
+            };*/
+
+
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -52,7 +77,7 @@ namespace MvcBook.Controllers
                 Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
                 Books = await books.ToListAsync()
             };
-
+            
             return View(bookGenreVM);
         }
 
@@ -74,7 +99,7 @@ namespace MvcBook.Controllers
             return View(book);
         }
 
-        // GET: Books/Create
+       /* // GET: Books/Create
         public IActionResult Create()
         {
             return View();
@@ -95,8 +120,8 @@ namespace MvcBook.Controllers
             }
             return View(book);
         }
-
-        // GET: Books/Edit/5
+*/
+     /*   // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,12 +135,12 @@ namespace MvcBook.Controllers
                 return NotFound();
             }
             return View(book);
-        }
+        }*/
 
         // POST: Books/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+      /*  [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Author,PublishDate,Genre,Price,Rating")] Book book)
         {
@@ -147,8 +172,8 @@ namespace MvcBook.Controllers
             return View(book);
         }
 
-        // GET: Books/AddToCart/5
-        public async Task<IActionResult> AddToCart(int? id)
+     */   // GET: Books/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -165,52 +190,37 @@ namespace MvcBook.Controllers
             return View(book);
         }
 
-        // POST: Books/AddToCart/5
-        [HttpPost, ActionName("Add")]
+        // POST: Books/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
 
-            try
-            {
-                var bookMvcBookUser = new BookMvcBookUser
-                {
-                    BookId = id,
-                    MvcBookUserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-                };
-                _context.BookMvcBookUser.Add(bookMvcBookUser);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException e)
-            {
-                var sqlException = e.GetBaseException() as SqlException;
-                if (sqlException != null)
-                {
-                    ModelState.AddModelError("AlreadyAdded", "This book is already added to his cart");
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    throw;
-                }
-
-                
-                
-            }
 
 
 
-          
 
-            
-           
-            
+            var bookMvcBookUser = from m in _context.BookMvcBookUser
+                                  where m.BookId == id
+                                  where m.MvcBookUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                  select m;
+
+
+
+          /*  var book = await _context.Book.FindAsync(id);*/
+            _context.BookMvcBookUser.RemoveRange(bookMvcBookUser);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
             return _context.Book.Any(e => e.Id == id);
+        }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
