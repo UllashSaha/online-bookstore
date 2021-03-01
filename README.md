@@ -2,7 +2,8 @@
  A web-based application that manages online bookstore facilitating with role-based authorization (e.g., admin and general user), dynamic book search options, and add-to-cart feature. 
  
 ## Features
-* Book CRUD operations for Admins
+* Role-based authorization
+* CRUD operations for Admins
 * Dynamic Search options  
 * Add-To-Cart feature
 
